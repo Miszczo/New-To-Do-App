@@ -3,14 +3,19 @@ import PropTypes from 'prop-types';
 import styles from './List.scss'
 import Hero from '../Hero/Hero.js';
 import Column from '../Column/Column.js';
+import {settings} from '../../data/dataStore';
 
 class List extends React.Component {
+  state = {
+    columns: this.props.columns || [],
+  }
   static propTypes = {
     title: PropTypes.node.isRequired,
-    children: PropTypes.node,
+    description: PropTypes.node,
+    columns: PropTypes.array,
   }
   static defaultProps = {
-    children: <p>I can do all the things!!!</p>
+    description: settings.defaultListDescription,
   }
   render() {
     return (
@@ -20,12 +25,12 @@ class List extends React.Component {
           imageLink={this.props.image}
         />
         <div className={styles.description}>
-          {this.props.children}
+          {this.props.description}
         </div>
         <div className={styles.columns}>
-          <Column titleOne='jeden'></Column>
-          <Column titleTwo='dwa'></Column>
-          <Column titleThree='trzy'></Column>
+          {this.state.columns.map(({key, ...columnProps}) => (
+            <Column key={key} {...columnProps} />
+          ))}
         </div>
       </section>
     );

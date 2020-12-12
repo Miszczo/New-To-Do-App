@@ -3,10 +3,15 @@ import PropTypes from 'prop-types';
 import styles from './Column.scss'
 
 class Column extends React.Component {
+  static propTypes = {
+    title: PropTypes.node,
+  }
   render(){
     return (
       <section className={styles.component}>
-        <h3 className={styles.title}>{this.props.titleOne}{this.props.titleTwo}{this.props.titleThree}</h3>
+        <h3 className={styles.title}>
+          {this.props.title}
+        </h3>
       </section>
     )
   }
